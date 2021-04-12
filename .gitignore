@@ -1,0 +1,8 @@
+## Editors
+# Sublime
+/*.sublime-workspace
+# Vim
+*.sw[a-z]
+.*.sw[a-z]
+*~
+/tags
