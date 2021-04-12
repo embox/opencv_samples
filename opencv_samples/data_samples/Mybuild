@@ -5,3 +5,8 @@ module facedetect_haarcascades {
 	source "haarcascades/haarcascade_eye_tree_eyeglasses.xml",
 	       "haarcascades/haarcascade_frontalface_alt.xml"
 }
+
+module squares {
+	@InitFS(target_dir="data")
+	source "squares"
+}
