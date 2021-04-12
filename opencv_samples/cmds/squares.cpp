@@ -9,6 +9,9 @@
 #include "opencv2/highgui.hpp"
 
 #include <iostream>
+#include <unistd.h>
+
+#include <cv_embox_imshowfb.hpp>
 
 using namespace cv;
 using namespace std;
@@ -132,14 +135,18 @@ static void drawSquares( Mat& image, const vector<vector<Point> >& squares )
         polylines(image, &p, &n, 1, true, Scalar(0,255,0), 3, LINE_AA);
     }
 
+#ifdef __EMBOX__
+    imshowfb(image, 0);
+#else
     imshow(wndname, image);
+#endif
 }
 
 
 int main(int argc, char** argv)
 {
-    static const char* names[] = { "data/pic1.png", "data/pic2.png", "data/pic3.png",
-        "data/pic4.png", "data/pic5.png", "data/pic6.png", 0 };
+    static const char* names[] = { "data/squares/pic1.png", "data/squares/pic2.png", "data/squares/pic3.png",
+        "data/squares/pic4.png", "data/squares/pic5.png", "data/squares/pic6.png", 0 };
     help(argv[0]);
 
     if( argc > 1)
@@ -163,9 +170,13 @@ int main(int argc, char** argv)
         findSquares(image, squares);
         drawSquares(image, squares);
 
+#ifdef __EMBOX__
+        sleep(1);
+#else
         int c = waitKey();
         if( c == 27 )
             break;
+#endif
     }
 
     return 0;
