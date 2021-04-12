@@ -152,7 +152,7 @@ int main(int argc, char** argv)
     if( argc > 1)
     {
      names[0] =  argv[1];
-     names[1] =  "0";
+     names[1] =  0;
     }
 
     vector<vector<Point> > squares;
