@@ -2,6 +2,9 @@
 #include "opencv2/highgui.hpp"
 #include "opencv2/imgproc.hpp"
 #include <iostream>
+#include <unistd.h>
+
+#include <cv_embox_imshowfb.hpp>
 
 using namespace std;
 using namespace cv;
@@ -114,9 +117,13 @@ int main( int argc, const char** argv )
             Mat frame1 = frame.clone();
             detectAndDraw( frame1, cascade, nestedCascade, scale, tryflip );
 
+#ifdef __EMBOX__
+            sleep(1);
+#else
             char c = (char)waitKey(10);
             if( c == 27 || c == 'q' || c == 'Q' )
                 break;
+#endif
         }
     }
     else
@@ -125,7 +132,11 @@ int main( int argc, const char** argv )
         if( !image.empty() )
         {
             detectAndDraw( image, cascade, nestedCascade, scale, tryflip );
+#ifdef __EMBOX__
+            sleep(5);
+#else
             waitKey(0);
+#endif
         }
         else if( !inputName.empty() )
         {
@@ -146,9 +157,13 @@ int main( int argc, const char** argv )
                     if( !image.empty() )
                     {
                         detectAndDraw( image, cascade, nestedCascade, scale, tryflip );
+#ifdef __EMBOX__
+                        sleep(1);
+#else
                         char c = (char)waitKey(0);
                         if( c == 27 || c == 'q' || c == 'Q' )
                             break;
+#endif
                     }
                     else
                     {
@@ -250,5 +265,9 @@ void detectAndDraw( Mat& img, CascadeClassifier& cascade,
             circle( img, center, radius, color, 3, 8, 0 );
         }
     }
+#ifdef __EMBOX__
+    imshowfb( img, 0 );
+#else
     imshow( "result", img );
+#endif
 }
