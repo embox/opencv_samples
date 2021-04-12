@@ -3,4 +3,6 @@
 //"edges fruits.png 20",
 //"facedetect data/faces/lena_256x256.png",
 //"facedetect data/faces/seq_256x256/img_%03d.png",
+//"squares data/squares/pic1.png",
+//"squares",
 "tish",
