@@ -1,0 +1,7 @@
+package project.opencv_samples.data
+
+module facedetect_haarcascades {
+	@InitFS(target_dir="data")
+	source "haarcascades/haarcascade_eye_tree_eyeglasses.xml",
+	       "haarcascades/haarcascade_frontalface_alt.xml"
+}

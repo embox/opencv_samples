@@ -1,0 +1,17 @@
+package project.opencv_samples.data.faces
+
+module lena {
+	@InitFS(target_dir="data/faces")
+	source "lena_512x512.png",
+	       "lena_256x256.png"
+}
+
+module seq_512x512 {
+	@InitFS(target_dir="data/faces")
+	source "seq_512x512"
+}
+
+module seq_256x256 {
+	@InitFS(target_dir="data/faces")
+	source "seq_256x256"
+}
