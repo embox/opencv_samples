@@ -1,5 +1,10 @@
 #include "opencv2/objdetect.hpp"
-#include "opencv2/highgui.hpp"
+#ifndef __EMBOX__
+# include "opencv2/highgui.hpp"
+#else
+# include "opencv2/imgcodecs.hpp"
+# include "opencv2/videoio.hpp"
+#endif
 #include "opencv2/imgproc.hpp"
 #include <iostream>
 #include <unistd.h>

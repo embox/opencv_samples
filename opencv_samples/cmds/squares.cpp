@@ -6,7 +6,9 @@
 #include "opencv2/core.hpp"
 #include "opencv2/imgproc.hpp"
 #include "opencv2/imgcodecs.hpp"
+#ifndef __EMBOX__
 #include "opencv2/highgui.hpp"
+#endif
 
 #include <iostream>
 #include <unistd.h>
