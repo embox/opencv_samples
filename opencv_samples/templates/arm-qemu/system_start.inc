@@ -5,4 +5,5 @@
 //"facedetect data/faces/seq_256x256/img_%03d.png",
 //"squares data/squares/pic1.png",
 //"squares",
+//"qrcode --i=data/qrcode/qrcode.png --detect",
 "tish",
