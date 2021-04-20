@@ -10,3 +10,8 @@ module squares {
 	@InitFS(target_dir="data")
 	source "squares"
 }
+
+module qrcode {
+	@InitFS(target_dir="data")
+	source "qrcode"
+}
