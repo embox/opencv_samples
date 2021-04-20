@@ -1,10 +1,14 @@
 #include "opencv2/objdetect.hpp"
 #include "opencv2/imgproc.hpp"
+#ifndef __EMBOX__
 #include "opencv2/highgui.hpp"
+#endif
 #include "opencv2/videoio.hpp"
 #include "opencv2/imgcodecs.hpp"
 #include <string>
 #include <iostream>
+
+#include <cv_embox_imshowfb.hpp>
 
 using namespace std;
 using namespace cv;
@@ -259,6 +263,7 @@ int liveQRCodeDetect()
             forceSave = true;
         }
 
+#ifndef __EMBOX__
         if (!result.empty())
             imshow("QR code", result);
 
@@ -266,6 +271,13 @@ int liveQRCodeDetect()
         if (code < 0 && !forceSave)
             continue; // timeout
         char c = (char)code;
+#else
+        if (!result.empty())
+            imshowfb( result, 0 );
+
+        char c = 27;
+#endif
+
         if (c == ' ' || forceSave)
         {
             string fsuffix = cv::format("-%05d", g_save_idx++);
@@ -330,6 +342,7 @@ int imageQRCodeDetect(const string& in_file)
     Mat result; input.copyTo(result);
     drawQRCodeResults(result, corners, decode_info, fps);
 
+#ifndef __EMBOX__
     imshow("QR", result); waitKey(1);
 
     if (!g_out_file_name.empty())
@@ -342,6 +355,9 @@ int imageQRCodeDetect(const string& in_file)
     cout << "Press any key to exit ..." << endl;
     waitKey(0);
     cout << "Exit." << endl;
+#else
+    imshowfb( result, 0 );
+#endif
 
     return 0;
 }
