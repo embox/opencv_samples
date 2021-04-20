@@ -316,6 +316,7 @@ int liveQRCodeDetect()
 int imageQRCodeDetect(const string& in_file)
 {
     const int count_experiments = 10;
+    double tm = 0.0f, t;
 
     Mat input = imread(in_file, IMREAD_COLOR);
     cout << "Run " << getQRModeString()
@@ -333,10 +334,14 @@ int imageQRCodeDetect(const string& in_file)
         decode_info.clear();
 
         timer.start();
+        t = (double)getTickCount();
         runQR(qrcode, input, corners, decode_info);
+        tm += (double)getTickCount() - t;
         timer.stop();
     }
     double fps = count_experiments / timer.getTimeSec();
+    printf("Caclculation time for %d experiments is %g ms\n",
+        count_experiments, tm*1000/getTickFrequency());
     cout << "FPS: " << fps << endl;
 
     Mat result; input.copyTo(result);
