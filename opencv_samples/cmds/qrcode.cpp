@@ -315,7 +315,7 @@ int liveQRCodeDetect()
 
 int imageQRCodeDetect(const string& in_file)
 {
-    const int count_experiments = 10;
+    const int count_experiments = 1;
     double tm = 0.0f, t;
 
     Mat input = imread(in_file, IMREAD_COLOR);
