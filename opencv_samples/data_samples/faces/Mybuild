@@ -11,6 +11,11 @@ module seq_512x512 {
 	source "seq_512x512"
 }
 
+module seq_480x480 {
+	@InitFS(target_dir="data/faces")
+	source "seq_480x480"
+}
+
 module seq_256x256 {
 	@InitFS(target_dir="data/faces")
 	source "seq_256x256"
