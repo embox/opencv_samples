@@ -4,3 +4,4 @@
 //"facedetect data/faces/seq_480x480/img_%03d.png",
 //"squares data/squares/pic1.png",
 //"squares",
+//"kmeans",

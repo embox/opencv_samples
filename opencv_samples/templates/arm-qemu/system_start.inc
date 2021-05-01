@@ -6,4 +6,5 @@
 //"squares data/squares/pic1.png",
 //"squares",
 //"qrcode --i=data/qrcode/qrcode_600x442.png --detect",
+//"kmeans",
 "tish",
