@@ -169,7 +169,11 @@ int main(int argc, char** argv)
             continue;
         }
 
+        double t = (double)getTickCount();
         findSquares(image, squares);
+        t = (double)getTickCount() - t;
+        printf( "detection time = %g ms\n", t*1000/getTickFrequency());
+
         drawSquares(image, squares);
 
 #ifdef __EMBOX__
