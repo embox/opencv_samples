@@ -9,7 +9,7 @@ package project.opencv_samples.cmds
 module facedetect {
 	source "facedetect.cpp"
 
-	depends embox.driver.video.fb
+	depends platform.opencv.lib.cv_embox_imshowfb
 	depends third_party.lib.opencv.all
 }
 
@@ -22,7 +22,7 @@ module facedetect {
 module squares {
 	source "squares.cpp"
 
-	depends embox.driver.video.fb
+	depends platform.opencv.lib.cv_embox_imshowfb
 	depends third_party.lib.opencv.all
 }
 
@@ -35,7 +35,7 @@ module squares {
 module kmeans {
 	source "kmeans.cpp"
 
-	depends embox.driver.video.fb
+	depends platform.opencv.lib.cv_embox_imshowfb
 	depends third_party.lib.opencv.all
 }
 
@@ -48,6 +48,6 @@ module kmeans {
 module qrcode {
 	source "qrcode.cpp"
 
-	depends embox.driver.video.fb
+	depends platform.opencv.lib.cv_embox_imshowfb
 	depends third_party.lib.opencv.all
 }
