@@ -1,7 +1,12 @@
+#ifndef __EMBOX__
 #include "opencv2/highgui.hpp"
+#endif
 #include "opencv2/core.hpp"
 #include "opencv2/imgproc.hpp"
 #include <iostream>
+
+#include <unistd.h>
+#include <cv_embox_imshowfb.hpp>
 
 using namespace cv;
 using namespace std;
@@ -18,6 +23,7 @@ using namespace std;
 int main( int /*argc*/, char** /*argv*/ )
 {
     const int MAX_CLUSTERS = 5;
+    const int MAX_ITERS = 5;
     Scalar colorTab[] =
     {
         Scalar(0, 0, 255),
@@ -27,13 +33,14 @@ int main( int /*argc*/, char** /*argv*/ )
         Scalar(0,255,255)
     };
 
-    Mat img(500, 500, CV_8UC3);
+    Mat img(480, 480, CV_8UC3);
     RNG rng(12345);
 
-    for(;;)
+    for(int j = 0; j < MAX_ITERS; j++)
     {
         int k, clusterCount = rng.uniform(2, MAX_CLUSTERS+1);
         int i, sampleCount = rng.uniform(1, 1001);
+        double t;
         Mat points(sampleCount, 1, CV_32FC2), labels;
 
         clusterCount = MIN(clusterCount, sampleCount);
@@ -53,9 +60,12 @@ int main( int /*argc*/, char** /*argv*/ )
 
         randShuffle(points, 1, &rng);
 
+        t = (double)getTickCount();
         double compactness = kmeans(points, clusterCount, labels,
             TermCriteria( TermCriteria::EPS+TermCriteria::COUNT, 10, 1.0),
                3, KMEANS_PP_CENTERS, centers);
+        t = (double)getTickCount() - t;
+        printf( "detection time = %g ms\n", t*1000/getTickFrequency());
 
         img = Scalar::all(0);
 
@@ -72,11 +82,16 @@ int main( int /*argc*/, char** /*argv*/ )
         }
         cout << "Compactness: " << compactness << endl;
 
+#ifdef __EMBOX__
+        imshowfb( img, 0 );
+        sleep(1);
+#else
         imshow("clusters", img);
 
         char key = (char)waitKey();
         if( key == 27 || key == 'q' || key == 'Q' ) // 'ESC'
             break;
+#endif
     }
 
     return 0;
