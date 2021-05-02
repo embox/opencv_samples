@@ -51,3 +51,16 @@ module qrcode {
 	depends platform.opencv.lib.cv_embox_imshowfb
 	depends third_party.lib.opencv.all
 }
+
+@LinkerSection(text="peopledetect_text",rodata="peopledetect_rodata",data="peopledetect_data",bss="peopledetect_bss",arm_exidx="peopledetect_arm_exidx",arm_extab="peopledetect_arm_extab")
+@AutoCmd
+@Cmd(name = "peopledetect",
+	help = "People Detection Demo")
+@BuildDepends(third_party.lib.opencv.all)
+@Build(stage=2)
+module peopledetect {
+	source "peopledetect.cpp"
+
+	depends platform.opencv.lib.cv_embox_imshowfb
+	depends third_party.lib.opencv.all
+}

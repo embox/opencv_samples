@@ -3,11 +3,16 @@
 // of this distribution and at http://opencv.org/license.html
 
 #include <opencv2/objdetect.hpp>
+#ifndef __EMBOX__
 #include <opencv2/highgui.hpp>
+#endif
 #include <opencv2/imgproc.hpp>
 #include <opencv2/videoio.hpp>
 #include <iostream>
 #include <iomanip>
+
+#include <unistd.h>
+#include <cv_embox_imshowfb.hpp>
 
 using namespace cv;
 using namespace std;
@@ -111,6 +116,10 @@ int main(int argc, char** argv)
             detector.adjustRect(r);
             rectangle(frame, r.tl(), r.br(), cv::Scalar(0, 255, 0), 2);
         }
+#ifdef __EMBOX__
+        imshowfb( frame, 0 );
+        sleep(1);
+#else
         imshow("People detector", frame);
 
         // interact with user
@@ -124,6 +133,7 @@ int main(int argc, char** argv)
         {
             detector.toggleMode();
         }
+#endif
     }
     return 0;
 }
