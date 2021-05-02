@@ -15,3 +15,8 @@ module qrcode {
 	@InitFS(target_dir="data")
 	source "qrcode"
 }
+
+module people {
+	@InitFS(target_dir="data")
+	source "people"
+}
