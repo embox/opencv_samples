@@ -6,3 +6,4 @@
 //"squares",
 //"qrcode --i=data/qrcode/qrcode_600x442.png --detect",
 //"kmeans",
+//"peopledetect --v=data/people/basketball2.png",

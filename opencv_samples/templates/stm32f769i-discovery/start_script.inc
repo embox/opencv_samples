@@ -5,3 +5,4 @@
 //"squares data/squares/pic1.png",
 //"squares",
 //"kmeans",
+//"peopledetect --v=data/people/basketball2.png",
