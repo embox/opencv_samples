@@ -8,7 +8,9 @@
 #include <string>
 #include <iostream>
 
+#ifdef __EMBOX__
 #include <cv_embox_imshowfb.hpp>
+#endif
 
 using namespace std;
 using namespace cv;

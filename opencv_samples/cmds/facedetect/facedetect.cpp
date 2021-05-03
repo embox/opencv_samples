@@ -9,7 +9,9 @@
 #include <iostream>
 #include <unistd.h>
 
+#ifdef __EMBOX__
 #include <cv_embox_imshowfb.hpp>
+#endif
 
 using namespace std;
 using namespace cv;
@@ -125,7 +127,7 @@ int main( int argc, const char** argv )
 #ifdef __EMBOX__
             sleep(1);
 #else
-            char c = (char)waitKey(10);
+            char c = (char)waitKey(1000);
             if( c == 27 || c == 'q' || c == 'Q' )
                 break;
 #endif

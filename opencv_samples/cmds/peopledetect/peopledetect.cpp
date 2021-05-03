@@ -12,7 +12,9 @@
 #include <iomanip>
 
 #include <unistd.h>
+#ifdef __EMBOX__
 #include <cv_embox_imshowfb.hpp>
+#endif
 
 using namespace cv;
 using namespace std;
@@ -126,7 +128,7 @@ int main(int argc, char** argv)
         imshow("People detector", frame);
 
         // interact with user
-        const char key = (char)waitKey(1);
+        const char key = (char)waitKey(10000);
         if (key == 27 || key == 'q') // ESC
         {
             cout << "Exit requested" << endl;

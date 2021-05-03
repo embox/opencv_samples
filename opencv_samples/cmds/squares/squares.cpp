@@ -13,7 +13,9 @@
 #include <iostream>
 #include <unistd.h>
 
+#ifdef __EMBOX__
 #include <cv_embox_imshowfb.hpp>
+#endif
 
 using namespace cv;
 using namespace std;

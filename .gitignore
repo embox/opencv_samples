@@ -6,3 +6,6 @@
 .*.sw[a-z]
 *~
 /tags
+
+## Other
+build
