@@ -1,0 +1,14 @@
+package project.opencv_samples.cmds
+
+@LinkerSection(text="qrcode_text",rodata="qrcode_rodata",data="qrcode_data",bss="qrcode_bss",arm_exidx="qrcode_arm_exidx",arm_extab="qrcode_arm_extab")
+@AutoCmd
+@Cmd(name = "qrcode",
+	help = "QR Code Detection Demo")
+@BuildDepends(third_party.lib.opencv.all)
+@Build(stage=2)
+module qrcode {
+	source "qrcode.cpp"
+
+	depends platform.opencv.lib.cv_embox_imshowfb
+	depends third_party.lib.opencv.all
+}

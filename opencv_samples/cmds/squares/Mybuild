@@ -1,0 +1,14 @@
+package project.opencv_samples.cmds
+
+@LinkerSection(text="squares_text",rodata="squares_rodata",data="squares_data",bss="squares_bss",arm_exidx="squares_arm_exidx",arm_extab="squares_arm_extab")
+@AutoCmd
+@Cmd(name = "squares",
+	help = "Square Detection Demo")
+@BuildDepends(third_party.lib.opencv.all)
+@Build(stage=2)
+module squares {
+	source "squares.cpp"
+
+	depends platform.opencv.lib.cv_embox_imshowfb
+	depends third_party.lib.opencv.all
+}

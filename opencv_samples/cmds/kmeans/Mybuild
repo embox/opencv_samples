@@ -1,0 +1,14 @@
+package project.opencv_samples.cmds
+
+@LinkerSection(text="kmeans_text",rodata="kmeans_rodata",data="kmeans_data",bss="kmeans_bss",arm_exidx="kmeans_arm_exidx",arm_extab="kmeans_arm_extab")
+@AutoCmd
+@Cmd(name = "kmeans",
+	help = "K-means Demo")
+@BuildDepends(third_party.lib.opencv.all)
+@Build(stage=2)
+module kmeans {
+	source "kmeans.cpp"
+
+	depends platform.opencv.lib.cv_embox_imshowfb
+	depends third_party.lib.opencv.all
+}
