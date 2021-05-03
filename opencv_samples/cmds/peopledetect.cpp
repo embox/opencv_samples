@@ -105,10 +105,13 @@ int main(int argc, char** argv)
 
         // show the window
         {
+#if 0
             ostringstream buf;
             buf << "Mode: " << detector.modeName() << " ||| "
                 << "FPS: " << fixed << setprecision(1) << (getTickFrequency() / (double)t);
             putText(frame, buf.str(), Point(10, 30), FONT_HERSHEY_PLAIN, 2.0, Scalar(0, 0, 255), 2, LINE_AA);
+#endif
+            printf( "detection time = %g ms\n", t*1000/getTickFrequency());
         }
         for (vector<Rect>::iterator i = found.begin(); i != found.end(); ++i)
         {
