@@ -51,6 +51,23 @@ $ make confload-ext_project/opencv_samples/stm32f769i-discovery-extmem
 $ make // you can optionally pass -j<n> to speed up build
 ```
 
-#### Install OpenOCD
+#### Getting OpenOCD
+You will need **OpenOCD >= 0.11.0**. You can download it [here](http://openocd.org/getting-openocd/).
 
 #### Flash and run Embox
+
+Start OpenOCD. If you built OpenOCD from sources:
+```
+$ cd <path to openocd>/tcl
+```
+Pass the corresponding `*.cfg` to openocd:
+```
+$ sudo ../src/openocd -f board/stm32f769i-disco.cfg
+```
+
+Then go to embox/ and run:
+```
+./scripts/gdb_run_stm32f7_qspi.sh
+```
+
+Embox will be loaded and you can call commands from conf/start_script.inc.
