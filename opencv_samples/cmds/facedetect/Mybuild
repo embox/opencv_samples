@@ -1,8 +1,9 @@
 package project.opencv_samples.cmds
 
 @LinkerSection(text="facedetect_text",rodata="facedetect_rodata",data="facedetect_data",bss="facedetect_bss",arm_exidx="facedetect_arm_exidx",arm_extab="facedetect_arm_extab")
+@App
 @AutoCmd
-@Cmd(name = "facedetect",
+@CxxCmd(name = "facedetect",
 	help = "Face and eyes detection")
 @BuildDepends(third_party.lib.opencv.all)
 @Build(stage=2)

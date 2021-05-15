@@ -1,8 +1,9 @@
 package project.opencv_samples.cmds
 
 @LinkerSection(text="qrcode_text",rodata="qrcode_rodata",data="qrcode_data",bss="qrcode_bss",arm_exidx="qrcode_arm_exidx",arm_extab="qrcode_arm_extab")
+@App
 @AutoCmd
-@Cmd(name = "qrcode",
+@CxxCmd(name = "qrcode",
 	help = "QR Code Detection Demo")
 @BuildDepends(third_party.lib.opencv.all)
 @Build(stage=2)

@@ -1,8 +1,9 @@
 package project.opencv_samples.cmds
 
 @LinkerSection(text="squares_text",rodata="squares_rodata",data="squares_data",bss="squares_bss",arm_exidx="squares_arm_exidx",arm_extab="squares_arm_extab")
+@App
 @AutoCmd
-@Cmd(name = "squares",
+@CxxCmd(name = "squares",
 	help = "Square Detection Demo")
 @BuildDepends(third_party.lib.opencv.all)
 @Build(stage=2)

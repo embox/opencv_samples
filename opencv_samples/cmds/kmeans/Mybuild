@@ -1,8 +1,9 @@
 package project.opencv_samples.cmds
 
 @LinkerSection(text="kmeans_text",rodata="kmeans_rodata",data="kmeans_data",bss="kmeans_bss",arm_exidx="kmeans_arm_exidx",arm_extab="kmeans_arm_extab")
+@App
 @AutoCmd
-@Cmd(name = "kmeans",
+@CxxCmd(name = "kmeans",
 	help = "K-means Demo")
 @BuildDepends(third_party.lib.opencv.all)
 @Build(stage=2)

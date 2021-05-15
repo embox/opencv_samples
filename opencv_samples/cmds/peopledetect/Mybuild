@@ -1,8 +1,9 @@
 package project.opencv_samples.cmds
 
 @LinkerSection(text="peopledetect_text",rodata="peopledetect_rodata",data="peopledetect_data",bss="peopledetect_bss",arm_exidx="peopledetect_arm_exidx",arm_extab="peopledetect_arm_extab")
+@App
 @AutoCmd
-@Cmd(name = "peopledetect",
+@CxxCmd(name = "peopledetect",
 	help = "People Detection Demo")
 @BuildDepends(third_party.lib.opencv.all)
 @Build(stage=2)
