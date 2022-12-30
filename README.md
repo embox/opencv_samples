@@ -19,6 +19,7 @@ Now templates are available:
 ```
 $ make confload
 ...
+ext_project/opencv_samples/stm32f746g-discovery
 ext_project/opencv_samples/stm32f769i-discovery
 ext_project/opencv_samples/stm32f769i-discovery-extmem
 ext_project/opencv_samples/arm-qemu
@@ -37,17 +38,23 @@ Run:
 ./scripts/qemu/auto_qemu
 ```
 
-### STM32F769I-Discovery
+### STM32F769I-Discovery & STM32F746G-Discovery
 
-You can run some samples from internal ROM (2 MB):
+You can run some samples on STM32F769I-Discovery from internal ROM (2 MB):
 ```
 $ make confload-ext_project/opencv_samples/stm32f769i-discovery
 $ make // you can optionally pass -j<n> to speed up build
 ```
 
-You can also run samples from internal QSPI (64 MB):
+You can also run samples STM32F769I-Discovery from internal QSPI (64 MB):
 ```
 $ make confload-ext_project/opencv_samples/stm32f769i-discovery-extmem
+$ make // you can optionally pass -j<n> to speed up build
+```
+
+STM32F746G-Discovery has 1 MB in-chip flash and 16 MB QSPI
+```
+$ make confload-ext_project/opencv_samples/stm32f746g-discovery
 $ make // you can optionally pass -j<n> to speed up build
 ```
 
