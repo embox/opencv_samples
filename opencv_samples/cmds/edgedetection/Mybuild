@@ -1,0 +1,20 @@
+
+package project.opencv_samples.cmds
+
+@LinkerSection(text="edgedetection",rodata="edgedetection_rodata",data="edgedetection_data",bss="edgedetection_bss",arm_exidx="detection_arm_exidx",arm_extab="edgedetection_arm_extab")
+@App
+@AutoCmd
+@CxxCmd(name = "edgedetection",
+	help = "edge detection of the given objects ")
+@BuildDepends(third_party.lib.opencv.all)
+@Build(stage=2)
+module edgedetection {
+	@IncludePath("$(EXTERNAL_BUILD_DIR)/third_party/lib/opencv/build/opencv-4.5.2/modules/highgui/include") 
+	source "edgedetection.cpp"
+
+	@InitFS(target_dir ="edgedetection") 
+	source "CMakeLists.txt"
+
+	depends platform.opencv.lib.cv_embox_imshowfb
+	depends third_party.lib.opencv.all
+}
