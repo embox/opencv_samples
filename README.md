@@ -189,4 +189,3 @@ Same as original OpenCV samples (BSD license).
 - Embox developers
 - LFW dataset for face images
 - PASS dataset for hard negative mining
-```
