@@ -6,7 +6,6 @@ This implementation is part of research at [MIPT University]
 
 Contact: Alkhazhali.zh@phystech.edu
 
-```markdown
 # opencv_samples - Enhanced with Embedded Cascades and TinyCNN
 
 This repository is a fork of the OpenCV samples adapted for Embox. It contains two major enhancements:
