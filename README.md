@@ -1,6 +1,9 @@
 Author: Alhajali Jalal
+
 Original work: March 2026
+
 This implementation is part of research at [MIPT University]
+
 Contact: Alkhazhali.zh@phystech.edu
 
 ```markdown
