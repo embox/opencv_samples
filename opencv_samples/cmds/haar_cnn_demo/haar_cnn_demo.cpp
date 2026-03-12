@@ -7,16 +7,18 @@
 #endif
 #include "opencv2/imgproc.hpp"
 #include <iostream>
-#include <unistd.h>
+#include <unistd.h> 
 
 #ifdef __EMBOX__
 #include <cv_embox_imshowfb.hpp>
 #include "face_cascade.inc"
 #include "eye_cascade.inc"
+#include "cnn_inference.h"
 #endif
 
 using namespace std;
 using namespace cv;
+
 
 #ifdef __EMBOX__
 static bool loadCascadeFromMemory(
@@ -142,6 +144,7 @@ void detectAndDraw(Mat& img,
                    bool tryflip)
 {
     double t = 0;
+    double total_start = (double)getTickCount();  // Start total timing
     vector<Rect> faces, faces2;
     Mat gray, smallImg;
 
@@ -165,43 +168,68 @@ void detectAndDraw(Mat& img,
     }
 
     t = (double)getTickCount() - t;
-    printf("detection time = %g ms\n", t * 1000 / getTickFrequency());
+    printf("Haar detection time = %g ms\n", t * 1000 / getTickFrequency());
+    printf("Haar found %zu potential faces\n", faces.size());
     fflush(stdout);
 
     for (size_t i = 0; i < faces.size(); i++) {
         Rect r = faces[i];
-        double ar = (double)r.width / r.height;
 
-        Point center(
-            cvRound((r.x + r.width*0.5)*scale),
-            cvRound((r.y + r.height*0.5)*scale)
-        );
+        // Extract ROI for CNN
+        Mat roi = img(r);
+        Mat gray_roi, cnn_input;
+        cvtColor(roi, gray_roi, COLOR_BGR2GRAY);
+        resize(gray_roi, cnn_input, Size(34, 34));
 
-        if (0.75 < ar && ar < 1.3) {
-            int radius = cvRound((r.width + r.height)*0.25*scale);
-            circle(img, center, radius, Scalar(255,0,0), 3);
+        // Time CNN inference
+        double cnn_start = (double)getTickCount();
+        float confidence = cnn_inference(cnn_input.data, 34, 34);
+        double cnn_end = (double)getTickCount();
+
+        double cnn_time = (cnn_end - cnn_start) * 1000 / getTickFrequency();
+
+        printf("  ROI %zu: confidence = %.3f (CNN took %.2f ms)\n", i, confidence, cnn_time);
+
+        // CNN decision: >0.3 = face, <0.3 = non-face
+        bool is_face = (confidence > 0.3f);
+
+        // Draw based on CNN decision
+        Scalar face_color;
+        if (is_face) {
+            face_color = Scalar(0, 255, 0);  // Green for faces
+            printf("    -> ACCEPTED as face\n");
         } else {
-            rectangle(img,
-                Point(cvRound(r.x*scale), cvRound(r.y*scale)),
-                Point(cvRound((r.x+r.width)*scale),
-                      cvRound((r.y+r.height)*scale)),
-                Scalar(255,0,0), 3);
+            face_color = Scalar(0, 0, 255);  // Red for non-faces
+            printf("    -> REJECTED as non-face\n");
         }
 
-        if (nestedCascade.empty()) continue;
+        // Draw face rectangle (color based on CNN)
+        rectangle(img,
+                  Point(cvRound(r.x*scale), cvRound(r.y*scale)),
+                  Point(cvRound((r.x+r.width)*scale),
+                        cvRound((r.y+r.height)*scale)),
+                  face_color, 3);
 
-        Mat roi = smallImg(r);
-        vector<Rect> eyes;
-        nestedCascade.detectMultiScale(roi, eyes);
+        // Only detect eyes if CNN says it's a face
+        if (is_face && !nestedCascade.empty()) {
+            Mat roi_small = smallImg(r);
+            vector<Rect> eyes;
+            nestedCascade.detectMultiScale(roi_small, eyes);
 
-        for (auto& e : eyes) {
-            Point ec(
-                cvRound((r.x+e.x+e.width*0.5)*scale),
-                cvRound((r.y+e.y+e.height*0.5)*scale));
-            int rad = cvRound((e.width+e.height)*0.25*scale);
-            circle(img, ec, rad, Scalar(0,255,0), 3);
+            for (auto& e : eyes) {
+                Point ec(
+                    cvRound((r.x + e.x + e.width*0.5)*scale),
+                    cvRound((r.y + e.y + e.height*0.5)*scale));
+                int rad = cvRound((e.width + e.height)*0.25*scale);
+                circle(img, ec, rad, Scalar(255, 255, 0), 2);  // Yellow circles for eyes
+            }
         }
     }
+
+    // End total timing
+    double total_end = (double)getTickCount();
+    double total_time = (total_end - total_start) * 1000 / getTickFrequency();
+    printf("Total detection time: %.2f ms\n", total_time);
 
 #ifdef __EMBOX__
     imshowfb(img, 0);
