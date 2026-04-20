@@ -1,4 +1,11 @@
-```markdown
+Author: Alhajali Jalal
+
+Original work: March 2026
+
+This implementation is part of research at [MIPT University]
+
+Contact: Alkhazhali.zh@phystech.edu
+
 # opencv_samples - Enhanced with Embedded Cascades and TinyCNN
 
 This repository is a fork of the OpenCV samples adapted for Embox. It contains two major enhancements:
@@ -182,4 +189,3 @@ Same as original OpenCV samples (BSD license).
 - Embox developers
 - LFW dataset for face images
 - PASS dataset for hard negative mining
-```
