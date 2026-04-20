@@ -20,7 +20,7 @@ message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
 # Declare the executable target built from your sources
-add_executable(opencv_facedetect facedetect.cpp)
+add_executable(opencv_facedetect embedded_facedetect.cpp)
 
 # Link your application with OpenCV libraries
 target_link_libraries(opencv_facedetect PRIVATE ${OpenCV_LIBS})

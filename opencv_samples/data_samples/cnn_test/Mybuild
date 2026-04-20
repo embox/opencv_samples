@@ -1,0 +1,11 @@
+package project.opencv_samples.data.cnn_test
+
+module faces {
+        @InitFS(target_dir="data/cnn_test")
+        source "faces"
+}
+
+module non_faces {
+        @InitFS(target_dir="data/cnn_test")
+        source "non_faces"
+}
