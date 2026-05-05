@@ -190,8 +190,8 @@ void detectAndDraw(Mat& img,
 
         printf("  ROI %zu: confidence = %.3f (CNN took %.2f ms)\n", i, confidence, cnn_time);
 
-        // CNN decision: >0.3 = face, <0.3 = non-face
-        bool is_face = (confidence > 0.3f);
+        // CNN decision: >0.5 = face, <0.5 = non-face
+        bool is_face = (confidence > 0.5f);
 
         // Draw based on CNN decision
         Scalar face_color;
