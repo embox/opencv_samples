@@ -1,0 +1,28 @@
+package project.opencv_samples.cmds
+
+@LinkerSection(text="facedetect_text",rodata="facedetect_rodata",data="facedetect_data",bss="facedetect_bss",arm_exidx="facedetect_exidx")
+@App
+@AutoCmd
+@CxxCmd(name = "haar_cnn_demo",
+        help = "Haar + CNN demo")
+@BuildDepends(third_party.lib.opencv.all)
+@Build(stage=2)
+module haar_cnn_demo {
+        source "../facedetect/face_cascade.inc",
+               "../facedetect/eye_cascade.inc"
+        
+        source "face_cascade.inc",
+               "eye_cascade.inc"
+        
+        source "conv1_weight.h",
+               "conv1_bias.h",
+               "conv2_weight.h",
+               "conv2_bias.h",
+               "fc1_weight.h",
+               "fc1_bias.h",
+               "fc2_weight.h",
+               "fc2_bias.h"
+
+        depends platform.opencv.lib.cv_embox_imshowfb
+        depends third_party.lib.opencv.all
+}
